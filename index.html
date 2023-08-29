@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="main row no-gutters">
+        <div class="col">
+            <h1>Fast Guide to Working Locally in Windows with VS Code</h1>
+            <p>Hi folks – having worked  through <a href="https://www.youtube.com/watch?v=tRZGeaHPoaw" target="_blank">this</a> excellent youtube guide from Jose, 
+                here is a step by step process for quickly setting up locally with VS code, including the annoying bits.</p>
+            <p>I think this will be a useful step for working on P2, just giving that extra flexibility.  And who knows, one day I may even style this page.</p>
+            <h2><u>Getting Set Up</u></h2>
+            <h3>Step 1 - Install VS Code</h3>
+            <ul>
+                <li>You can download it <a href="https://code.visualstudio.com/" target="_blank">here</a></li>
+                <li>I’ve installed a bunch of extensions but forgotten what they all are.  You don’t need anything to get set up but I’ll suggest a few at the end which make life better.</li>
+            </ul>
+            <h3>Step 2 - Install Git</h3>
+            <ul>
+                <li>Go to <a href ="https://git-scm.com/" target="_blank">their website</a></li>
+                <li>Navigate to the downloads page and download the latest version</li>
+                <li>There will be a bunch of options, and I'm not going to lie I have no idea with most of them.  
+                    <br>I chose to install Gitbash because it's useful having a decent ui and it integrates with VS Code which adds functionality to your terminal (more on that later)</li>
+                <li>Once it has installed check the 'launch Gitbash' box.  Let's get it set up!</li>
+            </ul>
+            <h3>Step 3 - Set up Git</h3>
+            <p>So that you can interact with cloud services, the first step with Git is to tell it who you are.  It's a pretty simple process!</p>
+
+            <ul>
+                <li>If you haven't launched Gitbash already, search for it on your start menu then launch it.</li>
+                <li>Set your name: <span class="code">git config --global user.name “YOURUSERNAME”</span></li>
+                <li>Set your email: <span class="code">git config –global user.email you@youremail.com</span>
+                <br><em>I used the same details as for GitHub.  I’m not sure if it matters or not, but it makes sense.</em></li>
+                <li>Set default name for main branch: <span class="code">git config –global init.default branch main</span></li>
+            </ul>
+            <h3>Step 4 - Install Python</h3>
+            <p>I don't think you really need to install Python yet, so feel free to skip this step.  I feel sure I'll need it later though!</p>
+            <ul>
+                <li>Go to the <a href="https://www.python.org/downloads/" target="_blank">Python download page</a></li>
+                <li>Install Python</li>
+            </ul>
+            <h3>Step 5 - Create local folder for your repos</h3>
+            <ul>
+                <li>Create a folder somewhere convenient.  I created the folder C:\\repos\.  No way I'm forgetting where that is.</li>
+            </ul>
+            <h3>Step 6 - Create / Clone your GitHub repo</h3>
+            <p>I realised when I decided to do this write-up that it's actually a million times easier than I thought. At least that.</p>
+            <ul>
+                <li>If you are using a brand new repo, then create it first in GitHub (you can also clone any exisitng repo to work on locally).</li>
+                <li>Load up VS CODE, ignore any messages, and click in the search bar at the top of the screen</li>
+                <li>Click 'show and run commands'
+                <br><img class="screengrab" src="assets/images/showandrun.png" height="300px"></li>
+                <li>type git:clone into the search bar and select the result; it should give you an option to clone a repo from GitHub
+                <br><img class="screengrab" src="assets/images/gitclone.png" height="300px"></li>
+                </li>
+                <li>When you select this option VS Code will prompt you to sign in to GitHub - you'll need to sign in via your GitHub account.
+                    You *should* see a drop-down list of your GitHub repos.</li>
+                <li>Select the repo you want to clone locally, navigate to the repos folder you created earlier, then click 'Select Repositary as Destination</li>
+                <li>You can then choose to add it to VS Code as a folder or workspace - I'm not sure it matters!</li>
+                <li>View your files in all their glory and feel deeply satisfied with yourself.</li>
+            </ul>
+            <h2><u>Authenticating Your Account</u></h2>
+            <p>What you might notice if you skip ahead is although git will track your changes just like on a cloud IDE, you can’t push 
+            any of those changes to the repo.  I heard a rumour you might be able to authenticate via browser, somehow, but if that doesn’t work then this is where it gets tricky. </p>
+            <br>It definitely comes into the category of ‘easy when you know how’.  
+            Remembering how has definitely come into the category of ‘wishing I hadn’t signed out in the first place’.  Don’t worry if you don’t know what any of this stuff means or what it does.  I don’t either.
+            <h3>Step 1 - Set up an SSH Private Key on Your Machine</h3>
+            <p>The full guide from GitHub is <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank">here</a> for reference.</p>
+            <ul>
+                <li>In Gitbash, create a new SSL key: <span class="code">ssh-keygen -t ed25519 -C "you@youremail.com"</span></li>
+                <li>When it prompts which location to save the key in, just press enter to use the default.
+                <br><img class="screengrab" src="assets/images/generate-key.JPG" height="100px"></li>
+                <li>It will ask you for a passphrase – if you choose to enter one you're on your own with how that works!</li>
+                <li>Start the SSH agent on your PC: <span class="code">eval "$(ssh-agent -s)"</span>
+                <br><img class="screengrab" src="assets/images/start-agent.JPG" height="75px"></li>
+                <li>Add your SSH private key to the SSH agent: <span class="code">ssh-add ~/.ssh/id_ed25519</span></li>
+            </ul>
+            <h3>Step 2 - Add the SSH Public Key to Your Account on GitHub</h3>
+            <p>The full guide from GitHub is <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">here</a> for reference.</p>
+            <ul>
+                <li>Open Gitbash (assuming you closed it).  If you like you could also use the terminal in VS Code!</li>
+                <li>Copy the public key to your clipboard: <span class="code">clip < ~/.ssh/id_ed25519.pub</span>
+                <br><em>You can now paste this key wherever you need to - I pasted it temporarily in notepad for safekeeping!</em></li>
+                <li>Log into GitHub and click on your profile avatar at the top right of the page, then click 'settings'</li>
+                <li>On the left-hand side-bar, click 'SSH and GPG keys' (This, annoyingly, is not what the guide says!)
+                <br><img class="screengrab" src="assets/images/SSH&GPG.JPG" height="500px"></li>
+                <li>Click 'NEW SSH KEY'</li>
+                <li>Paste your newly minted public SSH key here and save it, using an amusing name. Well, why not.</li>
+                <li>You should now be able to push commits to your GitHub repo from VS Code via the terminal (open the terminal by clicking 'Terminal' and selecting a terminal).
+                <br>If you cannot, then something has gone wrong.</li>
+            </ul>
+            <h2><u>Useful Things to Know</u></h2>
+            <p>I do not know everything.  It’s official.  For example, when using the command “python3 –m http.server” I have not been able to get it working in Windows, unless I specify the port, and that becomes a long story. There is probably some way of configuring it, but that’s a p3 problem.  What I have discovered is a few handy extensions that work around this and actually make life better.</p>
+            <h3>VS Code Extensions</h3>
+            <p>These do everything from enabling handy shortcuts to tucking you in bed and bringing you a cup of tea in the morning. Jose linked a few which I’ve also included below, but here’s what I’ve found:  </p>
+            <ul>
+                <li>Access extensions by clicking the extensions icon on the left of the screen (4 squares).  Then it works much like a web browser, you simply type in what you’re after.
+                <br><img class="screengrab" src="assets/images/extensions2.JPG" height="500px"></li>
+                <li>I have found “open in browser” great for testing.  Press ALT-B at any time to open the current file in a browser.  It avoids a lot of faffing for browser-based projects like P1 and P2.</li>
+                <li>Node.js is pretty essential to be able to follow the course as it’s used in the ‘Advanced Javascript’ module.</li>
+                <li>I've also installed a bunch of Python stuff I've never used.</li>
+            </ul>
+            <h4>Jose's Suggestions</h4>
+            <ul>
+                <li>Live Server</li>
+                <li>Auto Rename Tag</li>
+                <li>CSS Peek</li>
+                <li>Error Lens</li>
+                <li>indent-rainbow</li>
+                <li>IntelliSense for CSS class names in HTML</li>
+            </ul>
+            <h3>Terminal Options</h3>
+            <p>Whilst the terminal seems to work whatever  version you use, it is possible to select Gitbash as your terminal. 
+            <a href="https://www.youtube.com/watch?v=tRZGeaHPoaw" target="_blank">this</a> video explains a bit more about its functionality better than I could!
+            </p>
+            <p>What I didn’t realise until yesterday was that you can open multiple terminal instances.  So if you are running a local server off python, or anything else for that matter, you can open another instance of the terminal to commit changes!
+            <br><img class="screengrab" src="assets/images/terminal.png" height="300px"></p>
+        </div>
+    </div>
+    
+</body>
+</html>
